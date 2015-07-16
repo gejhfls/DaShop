@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="__HJS__/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="__HCSS__/catecss.css" type="text/css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="container">
+    <form method="POST" action="__URL__/editOk">
+        <table class="table" cellspacing="1" cellpadding="2" width="99%"
+               align="center" border="0">
+            <caption><h4>修改栏目信息</h4></caption>
+
+            <tbody>
+
+            <tr>
+                <td class="td_bg" width="17%" height="23" align="right">上级栏目</td>
+                <td width="83%" class="td_bg">
+                    <select name='cate_cid' <?php if($row['parent_id']=='0') echo 'disabled' ?>>
+                        <option value='0'>根栏目</option>
+                        <foreach name='data' item='vo'>
+                            <if
+                                    condition="$row['parent_id'] eq $vo['cat_id']">
+                                <option value='{$vo.cat_id}' selected>{$vo.cat_name}</option>
+                                <elseif condition="$row['cat_id'] eq $vo['cat_id']"/>
+                                <else />
+                                <option value='{$vo.cat_id}'>{$vo.cat_name}</option>
+                            </if> </foreach>
+                    </select>
+                    <input type='hidden' name='cat_id' value='{$row.cat_id}' />
+
+                </td>
+            </tr>
+            <tr>
+                <td class="td_bg" width="17%" height="23" align="right">栏目名</td>
+                <td width="83%" class="td_bg">
+                    <input type="text" name="cat_name" value="{$row.cat_name}">
+                </td>
+            </tr>
+            <tr>
+                <td class="td_bg" width="17%" height="23" align="right">栏目描述</td>
+                <td width="83%" class="td_bg">
+                    <textarea name='cat_desc' rows='4' cols='80'>{$row.cat_desc}
+                    </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="td_bg" width="17%" height="23" align="right">风格</td>
+                <td width="83%" class="td_bg">
+                    <input type="text" name="style" value="{$row.style}">
+                </td>
+            </tr>
+            <tr>
+                <td class="td_bg" width="17%" height="23" align="right">关键字</td>
+                <td width="83%" class="td_bg">
+                    <textarea name='keywords' rows='4' cols='80'>{$row.keywords}
+                    </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="td_bg" width="17%" height="23"></td>
+                <td class="td_bg" width="83%">
+                    <input type="submit" name="submit" value="修改" />
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+</body>
+</html>

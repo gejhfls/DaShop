@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="__HJS__/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="__HCSS__/catecss.css" type="text/css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body  style="">
+<div class="container-fluid">
+    <form method='post' action='__URL__/deleteAll'>
+<table class="table table-bordered">
+    <caption><h4>你可以管理你栏目，也可以添加一个 <span><a style="float: 18px" href="__URL__/add">新栏目</a></span></h4></caption>
+    <thead>
+    <tr>
+        <th class="bg_tr" align="left" height="25">序号</th>
+        <th class="bg_tr" align="left" height="25">分类名</th>
+        <th class="bg_tr" align="left" height="25">分类描述</th>
+        <th class="bg_tr" align="left" height="25">上级分类</th>
+        <th class="bg_tr" align="left" height="25">风格</th>
+        <th class="bg_tr" align="left" height="25">关键字</th>
+        <th class="bg_tr" align="left" height="25">修改</th>
+        <th class="bg_tr" align="left" height="25">
+            <input type='submit' name='deleteSubmit' value='删除' />
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <volist name='data' id='vo'>
+        <tr>
+            <td class="td_bg" width="5%" height="23" align="center">{$i}</td>
+            <td class="td_bg"  style='text-align:left;padding-left:10px;'>
+                <if condition="$vo['parent_id'] eq 0"> <font color='red'>
+                    <strong>{$vo.cat_name}</strong>
+                </font> <else /> |--------{$vo.cat_name} </if>
+            </td>
+            <td class="td_bg">{$vo.cat_desc}</td>
+            <td class="td_bg">{$vo['cate'].cat_name}</td>
+            <td class="td_bg">{$vo.style}</td>
+            <td class="td_bg">{$vo.keywords}</td>
+            <td class="td_bg">
+                <a href="__URL__/edit/id/{$vo.cat_id}">修改</a>
+            </td>
+            <td class="td_bg">
+                <input type='checkbox' value="{$vo.cat_id}" name='id[]' />
+            </td>
+        </tr>
+    </volist>
+    <tr>
+        <td colspan="8">{$show}</td>
+    </tr>
+    </tbody>
+</table>
+        </form>
+</div>
+</body>
+<script>
+    //默认状态是禁用状态
+    $("textarea[name=attr_value]").attr("disabled",'disabled');
+    $("#listsel").click(function(){
+        $("textarea[name=attr_value]").attr("disabled",'');//当选择列表时是开启状态。
+    });
+    $("#inputsel").click(function(){
+        $("textarea[name=attr_value]").val('');
+        $("textarea[name=attr_value]").attr("disabled",'disabled');//当选择手工输入时是禁用状态。
+    });
+</script>
+</html>

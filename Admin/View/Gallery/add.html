@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8"/>
+    <!--<meta name="viewport" content="width=device-width,initial-scale=1">-->
+
+
+    <link href="__ACSS__/reset.css" type="text/css" rel="stylesheet"/>
+    <link href="__ACSS__/01.css" type="text/css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="__JS__/jquery.js"></script>
+    <script type="text/javascript" src="__JS__/html5upload.js"></script>
+
+    <script type="text/javascript">
+
+        window.onload = function ()
+        {
+            ZhangHongyang.html5upload.init();
+        }
+        ;
+
+    </script>
+
+</head>
+<body>
+<br>
+<div id="gid" title="{$goods.id}"><h1 style="font-size: 20px">为<span style="color: #CC0000">{$goods.goods_name}</span>商品添加相册</h1></div>
+<div><p id="msgDiv"></p></div>
+<div id="uploadBox">
+</div>
+<div id="template" class="hidden">
+    <li>
+        <img src=""/>
+        <span class="progress"></span>
+        <span class="percentage"></span>
+    </li>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="__HJS__/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="__HCSS__/catecss.css" type="text/css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="main-div container">
+    <form action="__URL__/addok" method="post">
+        <caption><h4>添加新的商品栏目（所属根栏目的栏目会在主页显示）</h4></caption>
+        <table id="general-table" class="table">
+            <tr>
+                <th class="bg_tr" align="left" colspan="2" height="25">添加分类信息</th>
+            </tr>
+            <tr>
+                <td class="td_bg" width="17%" height="23" align="right">所属栏目</td>
+                <td width="83%" class="td_bg">
+                    <select name='parent_id' id='cid'>
+                        <option value='0'>根栏目</option>
+                        <volist name="data" id="vo">
+                            <option value="{$vo.cat_id}">{$vo.cat_name}</option>
+                        </volist>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="td_bg" width="17%" height="23" align="right">栏目名</td>
+                <td width="83%" class="td_bg">
+                    <input type="text" name="cat_name" id='name' />
+                </td>
+            </tr>
+            <tr>
+                <td class="td_bg" width="17%" height="23" align="right">栏目描述</td>
+                <td width="83%" class="td_bg">
+                    <textarea name='cat_desc' id='cat_desc' rows='4' cols='80'></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="td_bg" width="17%" height="23" align="right">风格</td>
+                <td width="83%" class="td_bg">
+                    <input type="text" name="style" id='cstyle' />
+                </td>
+            </tr>
+            <tr>
+                <td class="td_bg" width="17%" height="23" align="right">栏目关键字</td>
+                <td width="83%" class="td_bg">
+                    <textarea name='keywords' id='keywords' rows='4' cols='80'></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="td_bg" width="17%" height="23"></td>
+                <td class="td_bg" width="83%">
+                    <input type="submit" name="submit" value="添加" />
+                    <input type='reset' id='reset' value='重置' />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

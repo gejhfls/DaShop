@@ -1,0 +1,229 @@
+<!-- $Id: goods_info.htm 17126 2010-04-23 10:30:26Z liuhui $ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>添加新商品 </title>
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="__ACSS__/general.css" rel="stylesheet" type="text/css" />
+<link href="__ACSS__/main.css" rel="stylesheet" type="text/css" />
+<js href="__JS__/jquery.js"/>
+    <!--<link href="__ACSS__/bootstrap.min.css" type="text/css" rel="stylesheet">-->
+
+    <!--<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>-->
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function charea(a) {
+    var spans = ['general','detail','mix','attr','prom'];
+    for(i=0;i<5;i++) {
+        var o = document.getElementById(spans[i]+'-tab');
+        var tb = document.getElementById(spans[i]+'-table');
+        o.className = o.id==a+'-tab'?'tab-front':'tab-back';
+        tb.style.display = tb.id==a+'-table'?'block':'none';
+    }
+    
+}
+</script>
+</head>
+<body>
+
+<h1>
+<span class="action-span"><a href="__MODULE__/goods/lst">商品列表</a></span>
+<span class="action-span1"> 添加新商品 </span>
+<div style="clear:both"></div>
+</h1>
+
+<!-- start goods form -->
+<div class="tab-div">
+    <!-- tab bar -->
+    <div id="tabbar-div">
+      <p>
+        <span class="tab-front" id="general-tab" onclick="charea('general');">通用信息</span>
+        <span class="tab-back" id="detail-tab" onclick="charea('detail');">详细描述</span>
+        <span class="tab-back" id="mix-tab" onclick="charea('mix');">其他信息</span>
+        <span class="tab-back" id="attr-tab" onclick="charea('attr');">商品属性</span>
+        <span class="tab-back" id="prom-tab" onclick="charea('prom');">促销信息</span>
+      </p>
+    </div>
+
+    <!-- tab body -->
+    <div id="tabbody-div">
+      <form enctype="multipart/form-data" action="__URL__/addOK" method="post" name="theForm" >
+        <!-- 最大文件限制 -->
+        <input type="hidden" name="MAX_FILE_SIZE" value="2097152" />
+        <!-- 通用信息 -->
+        <table width="90%" id="general-table" align="center">
+          <tr>
+            <td class="label">商品名称：</td>
+            <td><input type="text" name="goods_name" value="" style="float:left;color:;" size="30" /></td>
+          </tr>
+          <tr>
+            <td class="label">
+            <a href="#" title="点击此处查看提示信息"><img src="__AIMG__/notice.gif" width="16" height="16" border="0" alt="点击此处查看提示信息"></a> 商品货号： </td>
+            <td><input type="text" name="goods_sn" value="" size="20"  /><span id="goods_sn_notice"></span><br />
+            <span class="notice-span" style="display:block"  id="noticeGoodsSN">如果您不输入商品货号，系统将自动生成一个唯一的货号。</span></td>
+          </tr>
+          <tr>
+            <td class="label">商品分类：</td>
+            <td><select name="cat_id"  >
+                <foreach name="catedate" item="vo">
+                <option value="{$vo.cat_id}">{$vo.cat_name}</option>
+                </foreach>
+            </select>
+             </td>
+          </tr>
+            <tr>
+                <td class="label">商品品牌：</td>
+                <td><select name="brand_id"  >
+                    <foreach name="branddata" item="vo">
+                        <option value="{$vo.brand_id}">{$vo.brand_name}</option>
+                    </foreach>
+                </select>
+                </td>
+            </tr>
+                   <tr>
+            <td class="label">本店售价：</td>
+            <td><input type="text" name="shop_price" value="0" size="20" /></td>
+          </tr>
+          
+          <tr>
+            <td class="label">上传商品图片(封面使用)：</td>
+            <td>
+              <input id="file1" type="file" name="goods_img1" size="35" />
+            </td>
+          </tr>
+            <tr>
+                <td class="label">上传商品图片2(鼠标移过时显示)：</td>
+                <td>
+                    <input id="file2" type="file" name="goods_img2" size="35" disabled="disabled"/>
+                </td>
+            </tr>
+        </table>
+
+        <!-- 详细描述 -->
+        <table width="90%" id="detail-table" style="display:none" align="center">
+          <tr>
+              <td class="label">商品详细描述：</td>
+              <td><textarea name="goods_desc" cols="50" rows="4"></textarea></td>
+          </tr>
+        </table>
+
+        <!-- 其他信息 -->
+        <table width="90%" id="mix-table" style="display:none" align="center">
+          <tr>
+            <td class="label"><a href="#" title="点击此处查看提示信息"><img src="__AIMG__/notice.gif" width="16" height="16" border="0" alt="点击此处查看提示信息"></a> 商品库存数量：</td>
+
+            <td><input type="text" name="goods_number" value="1" size="20" />
+          </tr>
+                    <tr>
+            <td class="label">加入推荐：</td>
+            <td><input type="checkbox" name="is_best" value="1"  />精品 <input id='isnewcheck' type="checkbox" name="is_new" value="1"  />新品 <input type="checkbox" name="is_hot" value="1"  />热销</td>
+
+            <tr  id="newdate" hidden="hidden">
+                <td class="label">新品截至日期：</td>
+                <td><input type="date" name="new_last_time"></td>
+            </tr>
+          </tr>
+          <tr id="alone_sale_1">
+            <td class="label" id="alone_sale_2">上架：</td>
+            <td id="alone_sale_3"><input type="checkbox" name="is_sale" value="1" checked="checked" /> 打勾表示允许销售，否则不允许销售。</td>
+          </tr>
+          <tr>
+            <td class="label">商品关键词：</td>
+            <td><input type="text" name="keywords" value="" size="40" /> 用空格分隔</td>
+          </tr>
+          <tr>
+            <td class="label">商品简单描述：</td>
+            <td><textarea name="goods_brief" cols="40" rows="3"></textarea></td>
+          </tr>
+        </table>
+       <!-- 商品属性 -->
+        <table width="40%" id="attr-table" style="display:none" align="center">
+          <tr>
+          <td align="right">商品类型:</td>
+          <td align="left"><select name="goods_type">
+              <option>请选择商品类型</option>
+                <?php foreach($typedata as $v){?>
+              <option value="<?php echo $v['id']?>"><?php echo $v['type_name']?></option>
+                <?php }?>
+          </select></td>
+          </tr>
+          <tr><td colspan="2"><div id="showattr"></div></td></tr>
+        </table>
+      <!-- 商品属性 -->
+        <table width="40%" id="prom-table" style="display:none" align="center">
+              <tr>
+                  <td class="label">是否促销：</td>
+                  <td><input id="promyes" type="radio" name="is_promote" value="1">是</td>
+                  <td><input id="promno" type="radio" name="is_promote" value="0" checked>否</td>
+              </tr>
+              <tr>
+                <td class="label">促销开始时间：</td>
+                <td><input class="promtime" type="date" name="promote_start_time"></td>
+              </tr>
+            <tr>
+                  <td class="label">结束开始时间：</td>
+                <td><input class="promtime" type="date" name="promote_end_time"></td>
+              </tr>
+            <tr>
+                <td class="label">促销价：</td>
+                <td><input class="promtime"  name="promote_start_price"></td>
+            </tr>
+
+        </table>
+
+  
+        <div class="button-div">
+          <input type="submit" name="submit" value=" 确定 " class="button" />
+          <input type="reset" value=" 重置 " class="button" />
+        </div>
+        <input type="hidden" name="act" value="insert" />
+      </form>
+    </div>
+</div>
+</body>
+</html>
+<script>
+$("select[name=goods_type]").change(changetype);
+function changetype(){
+    var id = $(this).val();
+//    alert("__URL__");
+    $.ajax({
+        type:'get',
+        url:'__URL__/showattr/id/'+id,
+        success:function(msg){
+            $("#showattr").html(msg);
+        }
+    })
+}
+//默认状态是禁用状态
+$(".promtime").attr("disabled",'disabled');
+$("#promyes").click(function(){
+    $(".promtime").attr("disabled",'');//当选择列表时是开启状态。
+
+});
+$("#promno").click(function(){
+    $(".promtime").val('');
+    $(".promtime").attr("disabled",'disabled');//当选择手工输入时是禁用状态。
+    alert($(".promtime").attr("disabled"));
+});
+    $("#isnewcheck").click(function(){
+        if ($("#isnewcheck").is(":checked"))
+            ($("#newdate").attr("hidden",""));
+        else{
+            $("#newdate").val('');
+            $("#newdate").attr("hidden","hidden");
+        }
+    });
+
+    $("#file1").change(function () {
+        if($(this).val() == "") {
+            $("#file2").attr("disabled", "disabled");
+            $("#file2").val("");
+        }else{
+            $("#file2").attr("disabled", "");
+        }
+    })
+</script>

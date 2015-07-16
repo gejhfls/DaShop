@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="__HCSS__/mecss.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+{$heading}
+<br>
+<br>
+
+<div role="tabpanel">
+
+    <div class="container">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs myul" role="tablist">
+        <li role="presentation"><a href="#home" aria-controls="cart" role="tab" data-toggle="tab" onclick="turn2order()">Order</a></li>
+        <li role="presentation"class="active"><a href="#cart" aria-controls="cart" role="tab"  data-toggle="tab" id="cartlink">cart</a></li>
+        <li role="presentation"><a href="#home" aria-controls="messages" role="tab" data-toggle="tab"  onclick="turn2fav()">favorite</a></li>
+        <li role="presentation"><a href="#home" aria-controls="settings" role="tab" data-toggle="tab" onclick="turn2inf()">Set inf</a></li>
+        <li role="presentation"><a href="#home" aria-controls="settings" role="tab" data-toggle="tab" onclick="turn2chpw()">Change Password</a></li>
+        <!--<li role="presentation"><a href="#home" aria-controls="settings" role="tab" data-toggle="tab">Message</a></li>-->
+        <li role="presentation"><a href="#home" aria-controls="settings" role="tab" data-toggle="tab" onclick="turn2AddAddress()">Set Address</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content col-sm-12" style="height:500px">
+
+        <div role="tabpanel" class="tab-pane fade in active" id="cart">
+            <table class="table table-hover">
+                <if condition="count($carts)==0">
+                    <h4 style="margin-top: 40px">You didn't add anything to your Cart</h4>
+                    <else/>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th width="120px">Goods Name</th>
+                    <th>Attribute</th>
+                    <th>Price</th>
+                    <th>Number</th>
+                    <th>Sum</th>
+                    <th>operation</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php $ii=1;$sumMoney=0 ?>
+
+                <foreach name="carts" item="cart">
+                <tr>
+                    <th scope="row"><?php echo $ii++ ?></th>
+                    <input type="hidden" id="hiddenid" name="id" value="{$cart.id}">
+                    <td><img width="100%" src="{$cart.goods_thumb}" style="max-height: 140px">{$cart.goods_name}</td>
+                    <td>{$cart.goods_attr}</td>
+                    <td>$<span class="goods_num"><?php echo $cart['shop_price']+$cart['goods_attr_price']; ?></span></td>
+                    <td>
+                        <input class="drop" onclick="dropq(this);" type="button" value="-" />
+                        <input class="text_box" onblur="calSum(this,this.value)" onkeydown="onlyNum();" type="text" value="{$cart.goods_number}" style="ime-mode:Disabled;width:40px;" name="goos_number" />
+                        <input class="add" onclick="addq(this);" type="button" value="+" /></td>
+                    <td>$<span class="sumq">
+                <?php echo $cart['goods_number']*($cart['shop_price']+$cart['goods_attr_price']);
+                $sumMoney+= $cart['goods_number']*($cart['shop_price']+$cart['goods_attr_price']);?>
+            </span></td>
+                    <td><a href="javescript:void(0);"onclick="deletetr(this)">delete</a></td>
+                </tr>
+                </foreach>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th id="sumMoney">$<?php echo $sumMoney ?></th>
+                    <th><button onclick="payforit()">pay for it</button></th>
+                </tr>
+
+                </tbody>
+                    </if>
+            </table>
+
+
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="home">
+            <div id="cframe" class="col-sm-12 col-xs-12">
+                <iframe class="contentFrame" width="100%" height="600px" name="main-frame" src="__MODULE__/Order/order" frameborder="no" scrolling="yes" ></iframe>
+            </div>
+        </div>
+        <!--<div role="tabpanel" class="tab-pane" id="messages">...</div>-->
+        <!--<div role="tabpanel" class="tab-pane" id="settings">...</div>-->
+    </div>
+
+    </div>
+</div>
+</body>
+<script>
+    $(function () {
+        $('#cartModel').attr('href','javascript:void()');
+        $('#cartModel').attr('data-toggle','');
+        $('#cartModel').click(function(){
+            $("#cartlink").click();
+        });
+    });
+
+
+    function payforit(){
+        var url = "http://"+window.location.host+"/index.php/Home/Order/checkout";
+        window.location.href=url;
+    }
+
+    function onlyNum() {
+        if(!(event.keyCode==46)&&!(event.keyCode==8)&&!(event.keyCode==37)&&!(event.keyCode==39))
+            if(!((event.keyCode>=48&&event.keyCode<=57)||(event.keyCode>=96&&event.keyCode<=105)))
+                event.returnValue=false;
+    }
+
+    function addq(tag){
+      var  url = "http://"+window.location.host+"/index.php/Home/Cart/changeNum";
+       var td=$(tag).parent()
+      var  tdd=$(tag).parent().parent().children("#hiddenid");
+      var  tm=td.children("input:eq(1)")
+        var num= Number(tm.val())+1;
+       var dataid=tdd.val();
+        $.post(url,{'id':dataid,'num':num}, function(data) {
+            // your code
+            if(data=="success") {
+                tm.val(num);
+                calSum(tag, num);
+                calMoney();
+            }
+        })
+
+
+
+    }
+    function dropq(tag){
+       var url = "http://"+window.location.host+"/index.php/Home/Cart/changeNum";
+      var  td=$(tag).parent()
+      var  tdd=$(tag).parent().parent().children("#hiddenid");
+      var  tm=td.children("input:eq(1)")
+        var num= Number(tm.val())-1;
+        if(num<1)num=1;
+      var  dataid=tdd.val();
+        $.post(url,{'id':dataid,'num':num}, function(data) {
+            // your code
+            if(data=="success") {
+                tm.val(num);
+                calSum(tag, num);
+                calMoney();
+            }
+        })
+    }
+    function calSum(tag,num){
+       var td=$(tag).parent()
+      var  price= td.prev().children('span').html()
+        td.next().children('span').html(num*price);
+    }
+    function deletetr(tag){
+       var url = "http://"+window.location.host+"/index.php/Home/Cart/delitem";
+       var td=$(tag).parent().parent().children("#hiddenid");
+       var dataid=td.val();
+//        alert(dataid);
+        $.post(url,{'id':dataid}, function(data) {
+            // your code
+            if(data=="success") {
+                td = $(tag).parent().parent().remove();
+                calMoney();
+            }
+        })
+
+    }
+
+    function calMoney(){
+        var money=0;
+        $(".sumq").each(function(index,data){
+           money += Number($(data).text())
+        })
+
+        $('#sumMoney').html(money);
+
+
+    }
+
+    function turn2order(tag){
+        var url = "http://"+window.location.host+"/index.php/Home/Order/order";
+        $('.contentFrame').attr('src',url)
+
+    }
+
+    function turn2fav(tag){
+        var url = "http://"+window.location.host+"/index.php/Home/Favorite";
+        $('.contentFrame').attr('src',url)
+
+    }
+
+    function turn2AddAddress(tag){
+        var url = "http://"+window.location.host+"/index.php/Home/Address/lst";
+        $('.contentFrame').attr('src',url)
+
+    }
+
+    function turn2inf(){
+        var url = "http://"+window.location.host+"/index.php/Home/Member/setInfo";
+        $('.contentFrame').attr('src',url)
+    }
+
+    function turn2chpw(){
+        var url = "http://"+window.location.host+"/index.php/Home/Register/changepw";
+        $('.contentFrame').attr('src',url)
+    }
+
+
+</script>
+</html>

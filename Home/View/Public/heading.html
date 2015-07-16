@@ -1,0 +1,238 @@
+<script src="__HJS__/lg.js"></script>
+<script>
+    function genghuan() {
+        var img1 = document.getElementById('img1');
+        img1.src = '__MODULE__/Register/createCode/' + new Date().getTime();
+    }
+
+    function GoSearch(){
+        var search = $('#searchBar').val();
+        alert(search);
+        if(search=='')return;
+        var url="http://"+window.location.host+"/index.php/Home/index/search?search="+search;
+        window.open(url);
+    }
+</script>
+
+<div class="heading">
+    <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #ffffff">
+        <div class="container-fluid">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navitems">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" style="position: absolute;top: -5px " id="aforbrand">
+                    <img alt="Brand" src="__HIMG__/brand.jpg" width="30px" style="display: inline">   {$welcome}!
+                </a>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="navitems">
+                <ul class="nav navbar-nav">
+                    <if condition="$_SESSION['user_name'] eq ''">
+                        <li><a href="#myModal" data-toggle="modal" class="userModel"><img style="display: inline" src="__HIMG__/user.png"> Log in</a></li>
+                        <elseif condition="$logout eq 1"/>
+                        <li><a href="__MODULE__/Register/logout" class="userModel"><img style="display: inline" src="__HIMG__/user.png"> Log out</a></li>
+                        <else/>
+                        <li><a href="__MODULE__/Member" class="userModel"><img style="display: inline" src="__HIMG__/user.png">{$_SESSION['user_name']}</a></li>
+                        </if>
+                    <li><a href="#myCart" data-toggle="modal" id="cartModel" onclick="frameReflash()"><img style="display: inline" src="__HIMG__/shopcar.png">$
+                        <span id="cartPrice"><?php $cartTemp = new \Home\Controller\CartController();$cartTemp->getSum(); ?></span>
+                    </a></li>
+
+
+                </ul>
+
+            </div>
+            </div>
+    </nav>
+    <div class="modal fade" id="myCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myCartLabel">Cart</h4>
+                </div>
+                <div class="modal-body">
+                    <iframe id="contentFrame" width="100%" height="500px" name="CartFrame" src="__MODULE__/Cart" frameborder="no" scrolling="yes" ></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Login</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="__MODULE__/Register/login" method="post" id="lmsubmit">
+                        <div class="form-group">
+                            <label for="lusername" class="col-sm-4 control-label">Username</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="lusername" placeholder="User/Email" name="user_name" >
+                                <div class="tooltip-info" id="ltooltip1" prompt=""></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lpassword" class="col-sm-4 control-label">Password</label>
+                            <div class="col-sm-6">
+                                <input type="password" class="form-control" id="lpassword" placeholder="Password" name="password">
+                                <div class="tooltip-info" id="ltooltip2" prompt=""></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lcode" class="col-sm-4 control-label">Check</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="lcode" placeholder="check code" name="code">
+                                <div class="tooltip-info" id="ltooltip5" prompt=""></div>
+                            </div>
+                            <div class="col-sm-3 col-xs-7">
+                                <img width="100%" id='img1' src="__MODULE__/Register/createCode" onclick="genghuan()"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Remember me
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" class="btn btn-default" id="lsubmit1">Log in</button>
+                                <button type="button" class="btn btn-primary" onclick="location='__MODULE__/Register'">Register</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="logo">
+        <div class="container-fluid" style="text-align: center">
+            <img src="__HIMG__/bigtitle.png" width="70%">
+        </div>
+    </div>
+    <br>
+
+            <div class="category" style="margin:0 auto;background-color: red;width: 280px">
+                <foreach name="category" item="fchild">
+              <div class="dropdown_{$fchild.cat_name} dropdown" style="background-color: #ffffff;width:140px;text-align: center;float: left;">
+               <a href="javascript:void(0)" class="dropdown-toggle firsta" data-toggle="dropdown_{$fchild.cat_name}" style="background-color: #000000;color: #ffffff;text-align: center;padding: 2px">&nbsp;{$fchild.cat_name}&nbsp;</a>
+                <ul class="dropdown-menu headdrop" style="background-color: #000000;min-width: 140px;width: 140px;">
+                    <li>
+                        <a href="__MODULE__/index/home/tid/{$fchild.cat_id}">All</a>
+                    </li>
+                    <foreach name="fchild.child" item="schild">
+            <li>
+                <a href="__MODULE__/index/home/tid/{$schild.cat_id}">{$schild.cat_name}</a>
+            </li>
+                    </foreach>
+                </ul>
+              </div>
+                </foreach>
+                <div style="clear: both"></div>
+            </div>
+                <br>
+             <div class="container ">
+                <div class="input-group"  style="text-align: right;width:100%;">
+                    <input type="text" id="searchBar" placeholder="Search">
+                    <span class="" id="basic-addon1"><a href="javascript:void(0);" onclick="GoSearch()"><img src="__HIMG__/search.png"></a></span>
+                </div>
+            </div>
+</div>
+
+<style>
+
+    body{
+        padding-top: 70px;
+    }
+    .headdrop li a{
+        color: #ffffff;
+    }
+    .headdrop li a:hover{
+        color: #000000;
+        background-color: #ffffff;
+    }
+
+    #searchBar{
+        border:1px solid #000000;
+    }
+
+    #searchBar:focus {
+        /*color: #ed1941;*/
+        border: 1px solid #ffffff;
+    }
+    .dropdown .dropdown-menu {
+        margin: 0;
+    }
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+</style>
+<script>
+    $(function () {
+    $("#ssfirsta").on("mouseover", function() {
+        if ($(this).parent().is(".open")) {
+            return
+        }
+
+        $(this).dropdown("toggle")
+    })
+        var windowWidth, windowHeight;
+        if (self.innerHeight) { // all except Explorer
+            if (document.documentElement.clientWidth) {
+                windowWidth = document.documentElement.clientWidth;
+            } else {
+                windowWidth = self.innerWidth;
+            }
+            windowHeight = self.innerHeight;
+        } else {
+            if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
+                windowWidth = document.documentElement.clientWidth;
+                windowHeight = document.documentElement.clientHeight;
+            } else {
+                if (document.body) { // other Explorers
+                    windowWidth = document.body.clientWidth;
+                    windowHeight = document.body.clientHeight;
+                }
+            }
+        }
+        if(windowWidth<=768) {
+            $('#cartModel').attr('href', '__MODULE__/Cart');
+        }
+
+        $("#ssfirsta").hover(function(){
+            $(this).dropdown("toggle")
+        },function(){
+//            $(this).dropdown("toggle")
+        })
+        $('#myCart').on('hide.bs.modal', function (e) {
+            // do something...
+            var url = 'http://'+window.location.host+'/index.php/Home/Cart/getSum';
+            $.post(url,function(data){
+                $("#cartPrice").html(data);
+            })
+        })
+        var url = "http://"+window.location.host+'/index.php/Home/Index/home';
+        $("#aforbrand").attr('href',url)
+    })
+    function frameReflash(){
+        var src=$("#contentFrame").attr('src');
+//        $("#contentFrame").attr('src','');
+        $("#contentFrame").attr('src',src);
+    }
+
+</script>

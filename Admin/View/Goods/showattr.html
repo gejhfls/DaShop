@@ -1,0 +1,67 @@
+<table>
+<?php
+        foreach($attrdata as $v){
+        $doc=' '; //默认空格分割
+        $docarr=array(
+        ',',  //逗号分割
+        '，', //中文逗号分割
+        ' ',  //空格分割
+        ';'); //分号分割
+        foreach($docarr as $v0){
+           if(stripos($v['attr_value'],$v0)>0){
+            $doc=$v0;break;}
+        }
+
+
+                    if($v['attr_input_type']==0){
+                           echo "<tr><td>".$v['attr_name']."</td><td>";
+                           echo "<input type='text' name='attr[".$v['id']."]'/></td></tr>";
+                    }else{
+                            //根据列表选择选择内容
+                           if($v['attr_type']==0){
+                                //进入该位置表明是一个唯一属性
+                                //根据列表值来选择
+                              $attrs = explode($doc,$v['attr_value']);//把默认值里面的内容转换 成一个数组
+                              echo "<tr><td>".$v['attr_name']."</td><td>";
+                              echo "<select name='attr[".$v['id']."]'>";
+                                            foreach($attrs as $v1){
+                                                   echo "<option value='$v1'>$v1</option>";                                           
+                                            }
+                              echo "</select></td></tr>";
+                           }else{
+                                 //进入该位置表明是一个单选属性
+                                  $attrs = explode($doc,$v['attr_value']);//把默认值里面的内容转换 成一个数组
+                              echo "<tr><td><a href='javascript:' onclick='copysel(this)'>[+]</a>".$v['attr_name']."</td><td>";
+                              echo "<select name='attr[".$v['id']."][]'>";
+                                            foreach($attrs as $v1){
+                                                   echo "<option value='$v1'>$v1</option>";                                           
+                                            }
+                              echo "</select>属性价格：<input type='text' name='price[".$v['id']."][]' size='5'/></td></tr>";
+                           
+                           }
+                          
+                    }
+
+        }
+?>
+
+</table>
+<script>
+function copysel(o){
+    //选择[+]所在的行。
+    var trs = $(o).parent().parent();
+    //在什么情况下复制一行。a标签里面的内容是[+]
+    if($(o).html()=='[+]'){
+            //复制一行
+         var newtrs = trs.clone();
+         //要修改新行中的a标签里面的 [+]为[-]
+         newtrs.find('a').html('[-]');
+          //复制的新行要插入到当前行的后面
+          trs.after(newtrs);
+
+    }else{
+        trs.remove();
+    }
+
+}
+</script>

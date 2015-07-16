@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+    <title></title>
+</head>
+<style>
+    .required{
+        color: red;
+        font-size: 20px;
+    }
+</style>
+<body>
+<div class="container-fluid">
+    <br>
+    <form class="form-horizontal" action="__MODULE__/Address/addSave" method="post" id="lmsubmit">
+        <div class="form-group">
+            <label for="consignee" class="col-sm-4 control-label">Consignee<span class="required">*</span></label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="consignee" placeholder="Name" name="consignee" value="{$add.consignee}">
+                <input type="hidden" name="aid" value="{$add.id}">
+                <div class="tooltip-info" id="ltooltip1" prompt=""></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address" class="col-sm-4 control-label">Address<span class="required">*</span></label>
+            <div class="col-sm-6">
+                <textarea class="form-control" id="address" placeholder="adress" name="address" rows="4">{$add.address}</textarea>
+                <div class="tooltip-info" id="ltooltip2" prompt=""></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-sm-4 control-label">Email</label>
+            <div class="col-sm-4">
+                <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="{$add.email}">
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="mobile" class="col-sm-4 control-label">Mobile<span class="required">*</span></label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="mobile" placeholder="Mobile" name="mobile" value="{$add.mobile}" >
+                <div class="tooltip-info" id="ltooltip3" prompt=""></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="tel" class="col-sm-4 control-label">Tel</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="tel" placeholder="Tel" name="tel" value="{$add.tel}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="zipcode" class="col-sm-4 control-label">Zipcode</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="zipcode" placeholder="Zipcode" name="zipcode" value="{$add.zipcode}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-xs-3 col-sm-1">
+                <button type="submit" class="btn btn-default" id="lsubmit1">Save</button>
+            </div>
+            <div class="col-xs-7">
+                <button type="button" class="btn btn-default" onclick="back()">Back</button>
+            </div>
+        </div>
+        <div class="form-group">
+
+        </div>
+    </form></div>
+</body>
+<script>
+    function back(){
+        var url = "http://"+window.location.host+"/index.php/Home/Address/lst";
+        window.location.href=url;
+    }
+
+</script>
+</html>

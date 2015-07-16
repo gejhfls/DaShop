@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="__HJS__/lg.js"></script>
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+
+    <title></title>
+</head>
+<style>
+    body{
+        background-color: #282828;
+    }
+    .content{
+        margin-top: 80px;
+        margin-bottom: 100px;
+        background-color: #eeeeee;
+        margin-left: auto;
+        margin-right: auto;
+        width: 800px;
+        height: 600px;
+    }
+
+    .con-left{
+        border-right:1px solid #aaaaaa;
+    }
+    @media screen and (max-width: 768px) {
+        .content{
+            margin-top: 60px;
+            padding-bottom: 20px;
+            margin-bottom: 60px;
+            background-color: #eeeeee;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            height: auto;
+        }
+
+        .con-left{
+            border-right:none;
+        }
+
+    }
+</style>
+<body>
+
+   <div class="content" >
+       <div class="brand" style="text-align: center;padding-top: 20px"><img src="__HIMG__/bigtitle.png" style="max-width: 400px;width: 80%"></div>
+       <br>
+       <br>
+       <div class="container-fluid">
+           <div class="col-sm-7 col-xs-12 con-left">
+               <H4>New CUSTOMER</H4>
+               <p>I'm not register yet!</p>
+               <button type="button" style="float: right;margin-right: 20px;" onclick="register()">Register</button>
+               <br>
+               <br>
+               <br>
+               <H4>CUSTOMER LOGIN</H4>
+               <p>I already have an account!</p>
+               <form method="post" action="__MODULE__/Register/login">
+                   <div class="form-group" style="width: 300px">
+                       <label for="exampleInputName2">Name</label>
+                       <input name="user_name" type="text" class="form-control" id="exampleInputName2" placeholder="Name/Email">
+                       <input type="hidden" name="forward" value="order">
+                   </div>
+                   <div class="form-group" style="width: 300px">
+                       <label for="exampleInputEmail2">Password</label>
+                       <input name="password" type="password" class="form-control" id="exampleInputEmail2" placeholder="Password">
+                   </div>
+                   <div class="form-group" style="width: 300px;">
+                       <label for="lcode" style="width: 100%" >Check</label>
+                       <div style="width:100px;float: left">
+                       <input type="text" class="form-control" id="lcode" placeholder="check code" name="code">
+                           <div class="tooltip-info" id="ltooltip5" prompt=""></div>
+                       </div>
+                       <img width="140px" id='img1' style="float: left" src="__MODULE__/Register/createCode" onclick="genghuan()"/>
+
+                   </div>
+                   <p class="visible-xs-block">&nbsp;</p>
+                   <br>
+                   <button type="submit" style="float: right;margin-right: 20px;">Login and continue</button>
+                   <br>
+                   <br>
+               </form>
+           </div>
+
+           <div class="col-sm-5 col-xs-12">
+               <H4>New CUSTOMER WITHOUT REG</H4>
+               <p>I'm not register yet!But i still want to buy it without login</p>
+
+               <br>
+               <button type="button" style="float: right" onclick="withoutlg()">Continue Without Login</button>
+           </div>
+
+       </div>
+   </div>
+</body>
+<script>
+    function genghuan() {
+        var img1 = document.getElementById('img1');
+        img1.src = '__MODULE__/Register/createCode/' + new Date().getTime();
+    }
+
+    function register(){
+        window.location.href = '__MODULE__/Register/register/forward/order'
+    }
+
+    function withoutlg(){
+        window.location.href = '__MODULE__/Order/orderform'
+    }
+</script>
+</html>

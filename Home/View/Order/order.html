@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="__HJS__/jquery.min.js"></script>
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="__HCSS__/catecss.css" type="text/css" rel="stylesheet">
+</head>
+<body  style="padding-top: 0px">
+<table class="table">
+
+    <if condition="count($orders)==0">
+        <h4 style="margin-top: 40px">You didn't buy anything</h4>
+    <else/>
+        <caption>Order table:</caption>
+    <thead>
+    <tr>
+        <!--<th>#</th>-->
+        <th>Order_SN</th>
+        <th>Order_desc</th>
+        <th>Consignee</th>
+        <th>Address</th>
+        <th>Mobile</th>
+        <th>Goods_Amount</th>
+        <th>Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <foreach name="orders" item="vo">
+    <tr><!--<th scope="row">1</th>-->
+        <td>{$vo.order_sn}</td>
+        <td>{$vo.order_desc}</td>
+        <td>{$vo.consignee}</td>
+        <td>{$vo.address}</td>
+        <td>{$vo.mobile}</td>
+        <td>{$vo.goods_amount}</td>
+        <td><a href="#">Pay</a></td>
+    </tr>
+    </foreach>
+    </tbody>
+    </if>
+</table>
+
+</body>
+</html>

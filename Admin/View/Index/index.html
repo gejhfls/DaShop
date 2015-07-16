@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+    <link href="__ACSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #header{
+            height: 50px;
+        }
+        #left{
+            padding: 0px;
+            height: 800px;
+            /*background-color: blue;*/
+        }
+        #right{
+            height: 800px;
+            background-color: #f7f7f7;
+        }
+        /*#helo{*/
+            /*padding: 0px;*/
+        /*}*/
+        a{
+            /*text-align: center;*/
+            font-family:"微软雅黑";
+            color:#9d9d9d;
+        }
+        #iframepage{
+            min-width: 800px;
+        }
+    </style>
+</head>
+<body >
+<div id="header" class="col-sm-12 ">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid" >
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navitems">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="__APP__" target="_blank">LukaShop</a>
+            <div class="collapse navbar-collapse navbar-right" id="navitems">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                    <li><a href="__MODULE__/login">Log out</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+        </div>
+        </div>
+    </nav>
+</div>
+
+<div class="container-fluid " class="col-sm-12 " id="helo" style="padding: 0px;">
+    <div id="left" class="col-sm-2 col-xs-2">
+        <ul class="nav nav-stacked">
+            <foreach name="menus" item="vo" >
+                <li class="explode" key="02_cat_and_goods"  name="menu">
+                    <a href="__MODULE__{$menuslink.$key}" target="main-frame"> {$lang.$key}</a><ul>
+                    <foreach name="menus[$key]" item="vo1" key="k1">
+                        <li type="none" class="menu-item"><a href="__MODULE__{$vo1}" target="main-frame">{$lang.$k1}</a></li>
+                    </foreach>
+                </ul>
+                </li>
+            </foreach>
+        </ul>
+    </div>
+
+    <div id="right" class="col-sm-10 col-xs-10" style="background-color: #333">
+        <iframe  id="iframepage" width="100%" height="800px" name="main-frame" src="__MODULE__/Index/welcome" frameborder="no" scrolling="yes" allowtransparency="true"></iframe>
+    </div>
+</div>
+</body>
+<script type="text/javascript" language="javascript">
+//    onLoad="iFrameHeight()"
+    function iFrameHeight() {
+        var ifm= document.getElementById("iframepage");
+        var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument;
+        if(ifm != null && subWeb != null) {
+            ifm.height = subWeb.body.scrollHeight;
+        }
+    }
+</script>
+</html>

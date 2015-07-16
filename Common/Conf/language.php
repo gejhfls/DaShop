@@ -1,0 +1,22 @@
+<?php
+$LANG['goodsmanage']='商品管理';
+$LANG['goodslist']='商品列表';
+$LANG['addgoods']='添加商品';
+$LANG['goodstype']='商品类型';
+$LANG['categorymanage']='栏目管理';
+$LANG['categorylist']='栏目列表';
+$LANG['addcategory']='添加栏目';
+$LANG['ordermanage']='订单管理';
+$LANG['orderlist']='订单列表';
+$LANG['membermanage']='会员管理';
+$LANG['memberlist']='会员等级';
+$LANG['brandmanage']='品牌管理';
+$LANG['addbrand']='添加品牌';
+$LANG['brandlist']='品牌列表';
+$LANG['gallerymanage']='商品图册';
+$LANG['gallerylist']='图册列表';
+$LANG['addgallery']='图册添加';
+return array(
+    'lang'=>$LANG
+);
+?>

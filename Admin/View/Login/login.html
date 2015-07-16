@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<form class="form-horizontal" action="__MODULE__/Login/signinAction" method="post" id="lmsubmit">
+    <div class="form-group">
+        <label for="lusername" class="col-sm-4 control-label">Username</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="lusername" placeholder="User/Email" name="username" >
+            <div class="tooltip-info" id="ltooltip1" prompt=""></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lpassword" class="col-sm-4 control-label">Password</label>
+        <div class="col-sm-4">
+            <input type="password" class="form-control" id="lpassword" placeholder="Password" name="password">
+            <div class="tooltip-info" id="ltooltip2" prompt=""></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lcode" class="col-sm-4 control-label">Check</label>
+        <div class="col-sm-2">
+            <input type="text" class="form-control" id="lcode" placeholder="check code" name="code">
+            <div class="tooltip-info" id="ltooltip5" prompt=""></div>
+        </div>
+        <div class="col-sm-2 col-xs-7">
+            <img width="100%" id='img1' src="__MODULE__/Login/createCode" onclick="genghuan()"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-8">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="remember"> Remember me
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-8">
+            <button type="submit" class="btn btn-default" id="lsubmit1">Log in</button>
+        </div>
+    </div>
+</form>
+
+</body>
+<script>
+    function genghuan() {
+        var img1 = document.getElementById('img1');
+        img1.src = '__MODULE__/Login/createCode/' + new Date().getTime();
+    }
+</script>
+</html>

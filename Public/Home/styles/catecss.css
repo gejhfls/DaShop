@@ -1,0 +1,124 @@
+.disp{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    /*margin-top: 15px;*/
+    white-space:nowrap;
+    /*max-height: 40px;*/
+    /*text-overflow: -o-ellipsis-lastline;*/
+    /*display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;*/
+}
+
+.goodsdesp{
+}
+
+body { padding-top: 70px; }
+
+.goodsimg{
+    width:100%;
+    line-height: 200px;
+    text-align:center;
+    vertical-align:middle;
+    overflow: hidden;
+    position: relative;
+}
+
+.goodsinfo{
+    text-align: center;
+
+}
+
+.selbtn{
+    position: absolute;
+    top: 15px;
+}
+
+.logo{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#sel1{
+    right: 75px;
+}
+
+#sel2{
+    right: 15px;
+}
+
+.goodsgroup{
+    margin-top: 40px;
+
+}
+.goodsimg span{
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.login input{
+    width: 80%;
+    float: right;
+}
+
+#catetitle{
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.pagerlink{
+    color:#000000;
+
+}
+
+.pagerlink h4{
+    font-weight: lighter;
+}
+
+.pagerlink:hover{
+    color:#aaaaaa;
+    text-decoration: none;
+}
+
+a:focus {outline:none; -moz-outline:none}
+body{
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+.footlink{
+    color: #ffffff;
+}
+.footlink:hover{
+    color: #BBB;
+    text-decoration : none
+}
+.footp{
+    margin-bottom: 4px;
+}
+
+.footTitle{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.newicon{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+}
+.dropdown-menu li a{
+    color:#000000;
+}
+.dropdown-menu li a:hover{
+    color: #ffffff;
+    background-color: #000000;
+}
+
+.catetitle,.catetitle h1,.catetitle h3{
+    white-space:nowrap;
+}
+
+.subtitle{
+    font-size: 20px;
+    font-weight: 300;
+}
+

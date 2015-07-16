@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <script src="__HJS__/jquery.min.js"></script>
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="__HCSS__/catecss.css" type="text/css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        td,th {
+            text-align: center
+        }
+
+
+    </style>
+</head>
+
+<body>
+<div class="container-fluid">
+<table class="table">
+    <caption>点击商品进入商品图册管理.</caption>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>商品名称</th>
+        <th>商品描述</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <volist name='data' id='vo'>
+        <tr>
+            <th scope="row">{$i}</th>
+            <td class="td_bg"  style='padding-left:10px;'>
+                <strong><a href="__URL__/admin/id/{$vo.id}">{$vo.goods_name}</a></strong>
+            </td>
+            <td class="td_bg">
+                {$vo.goods_brief}
+            </td>
+            <td class="td_bg">
+                <a href="__URL__/add/id/{$vo.id}">添加图册</a>
+            </td>
+        </tr>
+    </volist>
+    </tbody>
+</table>
+{$show}
+</div>
+</body>
+</html>

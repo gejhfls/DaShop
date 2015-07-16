@@ -1,0 +1,9 @@
+body{
+    padding-top:70px;
+}
+.myul li a {
+    color: #000000;
+}
+.myui li{
+    float: right;
+}

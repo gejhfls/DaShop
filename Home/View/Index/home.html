@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <script src="__HJS__/jquery.min.js"></script>
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="__HCSS__/catecss.css" type="text/css" rel="stylesheet">
+
+
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+{$heading}
+
+<!--<HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin-top: 0px" width="95%" color=#987cb9 SIZE=1>-->
+
+<div class="category">
+    <div class="container">
+        <div class="row">
+        <div class="col-xs-4 visible-xs-block catetitle" ><h3 style="">{$title}<span class="subtitle">{$subtitle}</span></h3></div>
+        <div class="col-sm-3 hidden-xs catetitle" ><h1 id="catetitle">{$title}<span class="subtitle">{$subtitle}</span></h1></div>
+        <div class="col-xs-8 col-sm-9"  style="height: 49px;text-align: right;">
+            <div class="btn-group selbtn" id="sel1">
+                <button class="btn btn-default btn-sm dropdown-toggle " type="button" data-toggle="dropdown" aria-expanded="false">
+                    Brand <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="__MODULE__/index/home{$page.burl}">All</a></li>
+                    <foreach name="brand" item="vo">
+                        <li><a href="__MODULE__/index/home{$page.burl}/brand/{$vo.brand_id}">{$vo.brand_name}</a></li>
+                    </foreach>
+                </ul>
+            </div>
+            <div class="btn-group selbtn" id="sel2">
+                <button class="btn btn-default btn-sm dropdown-toggle " type="button" data-toggle="dropdown" aria-expanded="false">
+                    Type <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" style="left: auto;right: 0px;">
+                    <li><a href="__MODULE__/index/home{$page.turl}">All</a></li>
+                    <li><a href="__MODULE__/index/home{$page.turl}/type/new">New</a></li>
+                    <li><a href="__MODULE__/index/home{$page.turl}/type/hot">Hot</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+        <HR style="margin-top: 3px;border-top: 1px solid #5e5e5e">
+    </div>
+    <!--<HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin-top: 0px" width="95%" color=#987cb9 SIZE=1>-->
+</div>
+<div class="goodslist">
+    <div class="container">
+        <if condition="count($result) eq 0"><h4>Sorry,cann't find such clothes</h4></if>
+        <div class="row">
+            <foreach name="result" item = "vo">
+            <div class="col-xs-12 col-sm-4 goodsgroup">
+                <div class="goodsimg">
+                    <a href="__MODULE__/Detail/index/id/{$vo.id}"><span></span><img
+                        <?php
+                        if($vo['is_new']=='1') echo 'class="new"';
+                        else if($vo['is_hot']=='1') echo 'class="hot"';
+                        ?>
+                            src="{$vo.goods_thumb1}" width="90%" height="auto"></a>
+                </div>
+                <div class="goodsinfo" style="padding-top:10px">
+                  <div class="goodsdesp" style="text-align: center;">
+                    <p class="disp" style="color: #868686">{$vo.goods_brief}</p>
+                  </div>
+                  <div class="goodsprice" style="text-align: center;">
+                    <p><span style="font-size: 20px">$ </span>{$vo.shop_price}&nbsp;&nbsp;&nbsp;
+                      <a href="javascript:void(0);" onclick="addfav(this)" goodsid="{$vo.id}"><img src="__HIMG__/fav.png"></a>
+                    </p>
+                  </div>
+                </div>
+                <div class="goodbtn" style="text-align: center">
+
+                </div>
+            </div>
+            </foreach>
+            <br>
+            <div class="col-xs-12 col-sm-12">
+                <div class="pager col-xs-3 col-sm-2" style="text-align: left" >
+                    <a href="__MODULE__/index{$page.url}/page/{$page.last}" class="pagerlink"><h4>&lt; Last</h4></a>
+                </div>
+                <div class="pager col-xs-6 col-sm-8">
+
+                    <div class=" " style="width: 100px;margin-left: auto;margin-right: auto;display:none">
+                        <input type="text" style="max-width: 40px" value="1">
+                        <span class=""><a href="#" class="pagerlink" style="font-weight: lighter">Jump</a></span>
+                    </div>
+
+                </div>
+                <div class="pager col-xs-3 col-sm-2" style="text-align: right" >
+                    <a href="__MODULE__/index{$page.url}/page/{$page.next}" class="pagerlink"><h4>Next &gt;</h4></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+    <div class="footing" style="background-color: #343434;height: 220px;padding-top:40px;">
+        <div class="footTitle col-sm-offset-3 col-sm-3 col-xs-5" style="text-align: right;color:#ffffff;font-size: 17px;font-weight: lighter;letter-spacing:2px">
+             <p class="footp">WeiBo:</p>
+            <p class="footp">WeiChat:</p>
+            <p class="footp">instagram:</p>
+            <p>Tel:</p>
+        </div>
+        <div class="footTitle col-sm-3 col-xs-3" style="text-align: left;color:#ffffff;font-size: 17px;font-weight: lighter">
+            <p class="footp"><a href="#" class="footlink">PhamtomStore</a></p>
+            <p class="footp"><a href="#" class="footlink">PhamtomStore</a></p>
+            <p class="footp"><a href="#" class="footlink">PhamtomStore</a></p>
+            <p>18868876197</p>
+        </div>
+        <br>
+        <div class="copyRight col-xs-12" style="text-align: center">
+            <p style="color: #ffffff">京 ICP 证 070598 号|Copyright © 1999-2014, CSDN.NET, All Rights Reserved </p>
+        </div>
+
+    </div>
+        </div>
+</div>
+</body>
+<script>
+
+    window.onload=function(){
+        $('.new').each(function(){
+            var Z = $(this).height();
+            var Z2 = $(this).parent().parent().height();
+            Z= (Number(Z2)-Number(Z))/2/Z2*100;
+            if(Z<0)Z=0;
+            var L = $(this).position().left;
+            var L2 = $(this).parent().parent().width();
+            L=((Number(L))/Number(L2)*100);
+            var str = '<img src="__HIMG__/newicon.png" class="newicon" style="top:'+Z+'%;left:'+L+'%;">';
+            var p=$(str);
+            $(this).parent().append(p);
+        })
+        $('.hot').each(function(){
+            var Z = $(this).height();
+            var Z2 = $(this).parent().parent().height();
+            Z= (Number(Z2)-Number(Z))/2/Z2*100;
+            if(Z<0)Z=0;
+            var L = $(this).position().left;
+            var L2 = $(this).parent().parent().width();
+            L=((Number(L))/Number(L2)*100);
+            var str = '<img src="__HIMG__/hoticon.png" class="newicon" style="top:'+Z+'%;left:'+L+'%;">';
+            var p=$(str);
+            $(this).parent().append(p);
+        })
+    }
+
+    $(resizeimg);
+    $(window).resize(resizeimg);
+    function resizeimg(){
+        var a=$('.goodsimg').width();
+        var b=$('.goodsinfo').width();
+        $('.goodsimg').css('height',a*1.2);
+        $('.goodsinfo').css('height','auto');
+    }
+
+    function addfav(tag){
+        var windowWidth, windowHeight;
+        if (self.innerHeight) { // all except Explorer
+            if (document.documentElement.clientWidth) {
+                windowWidth = document.documentElement.clientWidth;
+            } else {
+                windowWidth = self.innerWidth;
+            }
+            windowHeight = self.innerHeight;
+        } else {
+            if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
+                windowWidth = document.documentElement.clientWidth;
+                windowHeight = document.documentElement.clientHeight;
+            } else {
+                if (document.body) { // other Explorers
+                    windowWidth = document.body.clientWidth;
+                    windowHeight = document.body.clientHeight;
+                }
+            }
+        }
+        if(windowWidth>500)
+            var width=windowWidth-90;
+        else
+            var width=windowWidth-40;
+        var url = 'http://'+window.location.host+'/index.php/Home/Favorite/add';
+        $goods_id=$(tag).attr('goodsid')
+        $.post(url,{'goods_id':$goods_id},function(data){
+
+            if(data=='success'){
+                var urlb = window.location.host;
+                    var offset = $(".userModel").offset();
+                    var proOffset = $(tag).offset();
+                    var urlimg="http://"+urlb+"/Public/Home/images/fav.png";
+                    var flyer = $('<img class="u-flyer" src="'+urlimg+'">');
+                    flyer.css({ "position": "absolute", "top": proOffset.top, "left": proOffset.left+50 ,"z-index":99999});
+                    $("body").append(flyer);
+                    flyer.animate({
+                        left:width,
+//                        left:offset.left+15,
+                        top:offset.top+15,
+                        opacity:'0.5',
+                        height:'15px',
+                        width:'15px'
+                    },1000,function(){
+                        flyer.remove();
+                    })
+                }
+            if(data=='error')
+            $("#myModal").modal('toggle');
+        })
+    }
+</script>
+</html>

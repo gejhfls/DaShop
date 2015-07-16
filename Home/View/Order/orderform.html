@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="__HJS__/od.js"></script>
+    <title></title>
+</head>
+<style>
+    body{
+        background-color: #282828;
+    }
+    .content{
+        margin-top: 100px;
+        margin-bottom: 100px;
+        background-color: #eeeeee;
+        margin-left: auto;
+        margin-right: auto;
+        width: 800px;
+        height: 600px;
+    }
+
+    .con-left{
+        border-right:1px solid #aaaaaa;
+        min-height: 400px;
+    }
+    @media screen and (max-width: 768px) {
+        .content{
+            margin-top: 60px;
+            padding-bottom: 20px;
+            margin-bottom: 60px;
+            background-color: #eeeeee;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            height: auto;
+        }
+
+        .con-left{
+            border-right:none;
+            min-height: 100px;
+        }
+
+    }
+    .good_price,.quantity{
+        text-align: right;
+        font-size: 12px;
+    }
+    .good_attr{
+        font-size: 12px;
+    }
+    .required{
+        color: red;
+        font-size: 20px;
+    }
+</style>
+<body>
+
+<div class="content" >
+    <div class="brand" style="text-align: center;padding-top: 20px"><img src="__HIMG__/bigtitle.png" style="max-width: 400px;width: 80%"></div>
+    <br>
+    <br>
+    <div class="container-fluid">
+        <div class="col-sm-4 col-xs-12 con-left" style="overflow-y:auto;max-height: 400px">
+          <table width="100%">
+              <?php $ii=1;$desc='';$sumMoney=0 ?>
+              <foreach name="cart" item="vo">
+
+              <tr>
+                  <th class="good_name"><h4>{$vo.goods_name}</h4></th>
+                  <th class="quantity">X{$vo.goods_number}</th>
+              </tr>
+                  <?php $desc.=$vo['goods_name'].'X'.$vo['goods_number'].' '; ?>
+              <tr>
+                  <th class="good_attr">{$vo.goods_attr}</th>
+                  <th class="good_price">$<span><?php echo $vo['shop_price']+$vo['goods_attr_price'] ?></span></th>
+                  <?php $ii+=1;$sumMoney+=($vo['shop_price']+$vo['goods_attr_price'])*$vo['goods_number'] ?>
+              </tr>
+              </foreach>
+          </table>
+            <div style="height: 100px">
+            <h3 style="position: absolute;bottom: 10px;right: 10px">SUM:$<span>{$sumMoney}</span></h3>
+            </div>
+        </div>
+        <div class="col-sm-8 col-xs-12">
+            <div class="col-sm-6 col-sm-offset-3">
+                <if condition="$Message">
+                    {$Message}
+                <else />
+                    <select class="form-control">
+                        <option class="addoption">You can choose a consignee</option>
+                        <foreach name="add" item="vo">
+                            <option class="addoption" consignee="{$vo.consignee}" address="{$vo.address}" email="{$vo.email}" tel="{$vo.tel}" mobile="{$vo.mobile}" zipcode="{$vo.zipcode}" onclick="setadd(this)">{$vo.consignee}:{$vo.address}</option>
+                        </foreach>
+                    </select>
+                </if>
+            </div>
+        </div>
+        <div class="col-sm-8 col-xs-12">
+            <div class="container-fluid">
+                <br>
+                <form class="form-horizontal" action="__MODULE__/Order/done" method="post" id="lmsubmit">
+                    <div class="form-group">
+                        <label for="consignee" class="col-sm-3 control-label">Consignee<span class="required">*</span></label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="consignee" placeholder="Name" name="consignee" >
+                            <input type="hidden" value="{$desc}" name="order_desc">
+                            <if condition="$Message">
+                                <input type="hidden" value="nologin" name="type">
+                            <elseif/>
+                                <input type="hidden" value="allogin" name="type">
+                            </if>
+                            <div class="tooltip-info" id="ltooltip1" prompt=""></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="col-sm-3 control-label">Address<span class="required">*</span></label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="address" placeholder="adress" name="address" rows="4"></textarea>
+                            <div class="tooltip-info" id="ltooltip2" prompt=""></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="consignee" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-6">
+                            <input type="email" class="form-control" id="email" placeholder="Email" name="email" >
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile" class="col-sm-3 control-label">Mobile<span class="required">*</span></label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="mobile" placeholder="Mobile" name="mobile" >
+                            <div class="tooltip-info" id="ltooltip3" prompt=""></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tel" class="col-sm-3 control-label">Tel</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="tel" placeholder="Tel" name="tel" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="zipcode" class="col-sm-3 control-label">Zipcode</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="zipcode" placeholder="Zipcode" name="zipcode" >
+                            <input type="hidden" value="{$sumMoney}" name="goods_amount">
+                        </div>
+                    </div>
+
+                </form></div>
+        </div>
+        <div style="text-align: right;padding-right: 20px">
+            <button type="button" onclick="orderSubmit()">FINISH</button>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

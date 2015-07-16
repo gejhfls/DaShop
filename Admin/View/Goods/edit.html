@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="__HJS__/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="__HCSS__/catecss.css" type="text/css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style>
+    input{
+        class:'form-control'
+    }
+
+</style>
+<body style="padding-top: 20px;">
+<div class="main-div container">
+    <form action="__MODULE__/goods/editOk" method="post" name="theForm">
+        <caption><h4>修改商品属性</h4></caption>
+        <table id="general-table" class="table">
+            <tr>
+                <td align="right">商品名称:</td>
+                <td>
+                    <p>{$goodinfo.goods_name}</p>
+                    <input type="hidden" value="{$goodinfo.id}" name="id">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">商品售价:</td>
+                <td>
+                    <input type="text" name="shop_price" value="{$goodinfo.shop_price}">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">商品库存:</td>
+
+                <td><input type="text" name="goods_number" value="{$goodinfo.goods_number}" size="20" />
+            </tr>
+            <tr>
+                <td align="right">商品简介:</td>
+                <td><textarea name="goods_brief" cols="50" rows="3">{$goodinfo.goods_brief}</textarea></td>
+            </tr>
+            <tr>
+            <td align="right">商品详细描述：</td>
+            <td><textarea name="goods_desc" cols="50" rows="4">{$goodinfo.goods_desc}</textarea></td>
+            </tr>
+            <tr>
+                <td align="right">是否促销：</td>
+                <td><input id="promyes" type="radio" name="is_promote" value="1" <?php if($goodinfo['is_promote']=='1') echo 'checked'?>>是
+                    <input id="promno" type="radio" name="is_promote" value="0" <?php if($goodinfo['is_promote']=='0') echo 'checked'?>>否</td>
+            </tr>
+            <tr>
+                <td align="right">促销开始时间：</td>
+                <td><input class="promtime" type="date" name="promote_start_date" value="{$goodinfo.promote_start_date}"></td>
+            </tr>
+            <tr>
+                <td align="right">结束开始时间：</td>
+                <td><input class="promtime" type="date" name="promote_end_date" value="{$goodinfo.promote_end_date}"></td>
+            </tr>
+            <tr>
+                <td align="right">促销价：</td>
+                <td><input class="promtime"  name="promote_price" value="{$goodinfo.promote_price}"></td>
+            </tr>
+        </table>
+        <div class="button-div" align="center">
+            <input type="submit" name="submit" value=" 确定 " class="button" />
+            <input type="reset" value=" 重置 " class="button" />
+        </div>
+    </form>
+</div>
+</body>
+</html>

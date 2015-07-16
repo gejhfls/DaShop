@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="__HJS__/jquery.min.js"></script>
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="__HCSS__/catecss.css" type="text/css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body  style="padding-top: 0px">
+<div class="container-fluid">
+<table class="table">
+    <caption><h4>管理你的商品</h4></caption>
+    <thead>
+    <tr>
+        <!--<th>#</th>-->
+        <th>id</th>
+        <th>Name</th>
+        <th>Goods_SN</th>
+        <th>Price</th>
+        <th>Sale</th>
+        <th>New</th>
+        <th>Hot</th>
+        <th>Sort_Order</th>
+        <th>Goods_NUM</th>
+        <th>Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <foreach name="data" item="vo">
+        <tr id="trfor{$vo.id}">
+            <td>{$vo.id}</td>
+
+            <td class="first-cell" style=""><span ><a href="__MODULE__/goods/edit/id/{$vo.id}">{$vo.goods_name}</a></span></td>
+            <td><span >{$vo.goods_sn}</span></td>
+            <td align="right"><span >{$vo.shop_price}
+    </span></td>
+            <td align="center">
+                <a class="change" href="javascript:void(0)" onclick="changeVal('is_sale',{$vo.id})">
+                <img id="is_sale{$vo.id}" src="__AIMG__/<?php echo (($vo['is_sale']=='1')?'yes':'no')?>.gif"  />
+                </a>
+            </td>
+            <td align="center">
+                <a class="change" href="javascript:void(0)" onclick="changeVal('is_new',{$vo.id})">
+                <img id='is_new{$vo.id}' src="__AIMG__/<?php echo (($vo['is_new']=='1')?'yes':'no')?>.gif"  />
+                </a>
+            </td>
+            <td align="center">
+                <a class="change" href="javascript:void(0)" onclick="changeVal('is_hot',{$vo.id})">
+                <img id='is_hot{$vo.id}' src="__AIMG__/<?php echo (($vo['is_hot']=='1')?'yes':'no')?>.gif"  />
+                </a>
+            </td>
+
+            <td align="center"><span >100</span></td>
+            <td align="right"><span >{$vo.goods_number}</span></td>
+            <td align="center">
+                <a href="__MODULE__/goods/edit/id/{$vo.id}" title="编辑"><img src="__AIMG__/icon_edit.gif" width="16" height="16" border="0" /></a>
+                <a href="javascript:void(0);" onclick="del({$vo.id})"   title="回收站"><img src="__AIMG__/icon_trash.gif" width="16" height="16" border="0" /></a>
+             </td>
+        </tr>
+
+    </foreach>
+    </tbody>
+</table>
+</div>
+{$show}
+</body>
+<script>
+    function changeVal(tag,gid){
+
+        var src=$('#'+tag+gid).attr('src');
+        var url = "http://"+window.location.host+"/index.php/Admin/goods/changeTag";
+        if(src=='__AIMG__/yes.gif'){
+            var data={}
+            data[tag]=0;
+            data['id']=gid
+        }else{
+            var data={}
+            data[tag]=1;
+            data['id']=gid
+        }
+        $.post(url,data,
+                function(msg) {
+                    if (msg == 'success') {
+                        if (data[tag] == '0')
+                            $('#'+tag+gid).attr('src', '__AIMG__/no.gif');
+                        if (data[tag] == '1')
+                            $('#'+tag+gid).attr('src', '__AIMG__/yes.gif');
+                    }
+                }
+        );
+    }
+
+    function del(gid){
+        if(confirm("是否删除该商品，删除后无法通过网页端恢复，需联系技术人员？")){
+            //选择确定时进入
+            var url = "http://"+window.location.host+"/index.php/Admin/goods/del";
+            $.post(url,{'id':gid},
+                    function(msg) {
+                        if (msg == 'success') {
+                           $('#trfor'+gid).remove();
+                        }else{
+                            alert('删除失败')
+                        }
+                    }
+            );
+        }else{
+            //选择取消时进入
+        }
+    }
+
+</script>
+</html>

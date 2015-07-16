@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="__HJS__/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="__HCSS__/catecss.css" type="text/css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body  style="">
+<div class="container-fluid">
+<table class="table table-bordered">
+    <caption><h4>你可以管理你的商品属性，也可以添加一个 <span><a style="float: 18px" href="__URL__/add">新属性</a></span></h4></caption>
+    <thead>
+    <tr>
+        <th><a href="#">编号</a> </th>
+        <th><a href="#">属性名称</a></th>
+        <th><a href="#">商品类型</a></th>
+        <th><a href="#">属性值的录入方式</a></th>
+        <th><a href="#">可选值列表</a></th>
+
+        <th>操作</th>
+    <tr>
+    </thead>
+    <tbody>
+    <foreach name="attrdata" item="vo">
+        <tr>
+            <td>{$vo.id}</td>
+
+            <td class="first-cell" style=""><span >{$vo.attr_name}</span></td>
+            <td><span >{$vo.type_name}</span></td>
+            <td >{$vo.attr_input_type}</td>
+
+            <td><span >{$vo.attr_value}</span></td>
+
+            <td>
+                <a href="#" target="_blank" title="查看"><img src="__AIMG__/icon_view.gif" width="16" height="16" border="0" /></a>
+                <a href="#" title="编辑"><img src="__AIMG__/icon_edit.gif" width="16" height="16" border="0" /></a>
+                <a href="#" title="复制"><img src="__AIMG__/icon_copy.gif" width="16" height="16" border="0" /></a>
+                <a href="#"  title="回收站"><img src="__AIMG__/icon_trash.gif" width="16" height="16" border="0" /></a>
+            </td>
+        </tr>
+    </foreach>
+    </tbody>
+</table>
+</div>
+</body>
+<script>
+    //默认状态是禁用状态
+    $("textarea[name=attr_value]").attr("disabled",'disabled');
+    $("#listsel").click(function(){
+        $("textarea[name=attr_value]").attr("disabled",'');//当选择列表时是开启状态。
+    });
+    $("#inputsel").click(function(){
+        $("textarea[name=attr_value]").val('');
+        $("textarea[name=attr_value]").attr("disabled",'disabled');//当选择手工输入时是禁用状态。
+    });
+</script>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+
+
+    <link href="__HCSS__/sDetail.css" type="text/css" rel="stylesheet">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style>
+    body{
+        padding-top: 0px;
+    }
+    .img{
+        /*background-color: red;*/
+        width:100%;
+        line-height: 200px;
+        text-align:center;
+        vertical-align:middle;
+        overflow: hidden;
+    }
+    .img span{
+        height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+    }
+</style>
+<body>
+<br>
+<div class="container-fluid col-sm-12">
+    <h1>图片管理</h1>
+    <br>
+    <if condition="count($data) eq 0">
+        <caption><h2>该商品并未添加任何图片点击<span><a href="__URL__/add/id/{$gid}">添加</a></span></h2></caption>
+        <else/>
+        <caption><h4>管理该商品图册或者<span><a href="__URL__/add/id/{$gid}">添加</a></span>新图片</h4></caption>
+    </if>
+    <input type="hidden" id="goodsid" value="{$gid}">
+    <foreach name="data" item="pic">
+        <div class="col-xs-6 col-sm-3 goodsgroup">
+            <div style="border: 1px solid #282828;margin-bottom: 5px">
+            <div class="img">
+                <span></span><img src="{$pic.thumb_url}" width="90%">
+
+            </div>
+            <div class="operation" style="height: 30px;margin-top: 2px">
+                <p style="float: left;margin-left: 4px">权重:</p><input type="number" name="order" imgid="{$pic.img_id}" value="{$pic.img_order}" style="width: 35px;float: left;margin-right: 2px;margin-left: 2px;" onblur="changeVal(this)">
+                <button type="button" onclick="showInPage(this)">置顶展示</button>
+                <a href="#"><img src="__AIMG__/delete.png"></a>
+
+            </div>
+            </div>
+        </div>
+    </foreach>
+
+
+
+</div>
+</body>
+<script>
+    $(resizeimg);
+    $(window).resize(resizeimg);
+    function resizeimg(){
+        var a=$('.img').width();
+        $('.img').css('height',a*1.2);
+    }
+
+    function changeVal(tag){
+        var id=$(tag).attr('imgid');
+        var value=$(tag).val();
+        var url="__MODULE__/gallery/changeVal";
+        $.post(url,{'img_order':value,'img_id':id},function(msg){
+//            alert(msg);
+        })
+    }
+
+    function showInPage(tag){
+        var input = $(tag).prev();
+        var goodsid=$('#goodsid').val();
+        var id=input.attr('imgid');
+        var url="__MODULE__/gallery/showInPage";
+        $.post(url,{'img_id':id,'goods_id':goodsid},function(msg){
+            var val=Number(msg);
+            if(val>0){
+                $(tag).prev().val(val);
+            }
+        })
+    }
+
+</script>
+</html>

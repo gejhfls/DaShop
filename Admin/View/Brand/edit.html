@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="__HJS__/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="__HCSS__/catecss.css" type="text/css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="container">
+    <form method="POST" action="__URL__/editOk">
+        <table class="table" cellspacing="1" cellpadding="2" width="99%"
+               align="center" border="0">
+            <caption><h4>修改品牌信息</h4></caption>
+            <tbody>
+
+            <input type='hidden' name='brand_id' value='{$row.brand_id}' />
+
+            <td class="td_bg" width="17%" height="23" align="right">分类名</td>
+            <td width="83%" class="td_bg">
+                <input type="text" name="brand_name" value="{$row.brand_name}">
+            </td>
+            </tr>
+            <tr>
+                <td class="td_bg" width="17%" height="23" align="right">分类描述</td>
+                <td width="83%" class="td_bg">
+                    <textarea name='brand_desc' rows='4' cols='80'>{$row.brand_desc}
+                    </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="td_bg" width="17%" height="23" align="right">链接</td>
+                <td width="83%" class="td_bg">
+                    <input type="text" name="site_url" value="{$row.site_url}">
+                </td>
+            </tr>
+            <tr>
+                <td class="td_bg" width="17%" height="23" align="right">是否显示（否代表下架）</td>
+                <td width="83%" class="td_bg">
+                    <input type="radio" name="is_show" value=1
+                    <if condition="$row.is_show eq 1">checked</if>
+                    >是
+                    <input type="radio" name="is_show" value=0
+                    <if condition="$row.is_show eq 0">checked</if>
+                    >否
+                </td>
+            </tr>
+            <tr>
+                <td class="td_bg" width="17%" height="23"></td>
+                <td class="td_bg" width="83%">
+                    <input type="submit" name="submit" value="修改" />
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+</body>
+</html>

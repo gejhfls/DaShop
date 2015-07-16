@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="__HJS__/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="__HCSS__/catecss.css" type="text/css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body style="padding-top: 0px">
+<div class="container-fluid">
+    <if condition="count($result)==0">
+        <h4 style="margin-top: 40px">You didn't add anything to your favorite</h4>
+        <else/>
+    <div class="row">
+<foreach name="result" item = "vo">
+    <div class="col-xs-12 col-sm-3 goodsgroup">
+        <div class="goodsimg" style="text-align: center;">
+            <a href="__MODULE__/Detail/index/id/{$vo.good.id}"><span></span><img src="{$vo.good.goods_thumb1}" width="90%"></a>
+        </div>
+        <div class="goodsinfo" style="padding-top:10px">
+            <div class="goodsdesp" style="text-align: center;">
+                <p class="disp">{$vo.good.goods_brief}</p>
+            </div>
+            <div class="goodsprice" style="text-align: center;">
+                <p ><span style="font-size: 20px">$ </span>{$vo.good.shop_price}&nbsp;&nbsp;&nbsp;
+                    <a href="javascript:void(0);" onclick="delfav(this)" goodsid="{$vo.good.id}">delete</a>
+                </p>
+            </div>
+        </div>
+        <div class="goodbtn" style="text-align: center">
+
+        </div>
+    </div>
+</foreach>
+        </div>
+        </if>
+</div>
+
+</body>
+<script>
+    $(resizeimg);
+    $(window).resize(resizeimg);
+    function resizeimg(){
+        var a=$('.goodsimg').width();
+        var b=$('.goodsinfo').width();
+        $('.goodsimg').css('height',a*1.2);
+        $('.goodsinfo').css('height',b*0.18);
+    }
+
+    function delfav(tag){
+        var url = 'http://'+window.location.host+'/index.php/Home/Favorite/del';
+        $goods_id=$(tag).attr('goodsid');
+        $.post(url,{'goods_id':$goods_id},function(data){
+//            alert(data);
+            $(tag).parent().parent().parent().parent().remove();
+        })
+    }
+</script>
+
+</html>

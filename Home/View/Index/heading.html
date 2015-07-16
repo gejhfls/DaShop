@@ -1,0 +1,87 @@
+<div class="heading">
+    <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #ffffff">
+        <div class="container-fluid">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navitems">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" style="position: absolute;top: -5px ">
+                    <img alt="Brand" src="__HIMG__/brand.jpg" width="30px" style="display: inline">   welcome!
+                </a>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="navitems">
+                <ul class="nav navbar-nav">
+                    <if condition="$_SESSION['user_name'] eq ''">
+                    <li><a href="#myModal" data-toggle="modal" ><img style="display: inline" src="__HIMG__/user.png"> log in</a></li>
+                    <else/><li><a href="__MODULE__/Member"><img style="display: inline" src="__HIMG__/user.png">{$_SESSION['user_name']}</a></li>
+                    </if>
+                        <li><a href="#" ><img style="display: inline" src="__HIMG__/shopcar.png"> $
+                            <span><?php $cartTemp = new \Home\Controller\CartController();$cartTemp->getSum(); ?></span>
+                        </a></li>
+
+                </ul>
+
+            </div>
+    </nav>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Login</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-4 control-label">Username</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="inputEmail3" placeholder="User/Email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-4 control-label">Password</label>
+                            <div class="col-sm-6">
+                                <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword4" class="col-sm-4 control-label">Check</label>
+                            <div class="col-sm-6">
+                                <input type="password" class="form-control" id="inputPassword4" placeholder="Password again">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Remember me
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">Sign in</button>
+                                <button type="button" class="btn btn-primary" onclick="location='__MODULE__/Member'" >Register</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="logo">
+        <div class="container-fluid" style="text-align: center">
+            <img src="__HIMG__/bigtitle.png" width="70%">
+            <!--<div class="category" st><a href="#">man</a> <a href="#">woman</a></div>-->
+        </div>
+    </div>
+</div>

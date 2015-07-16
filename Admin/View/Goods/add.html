@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="__HJS__/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="__HCSS__/catecss.css" type="text/css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style>
+    input{
+        class:"form-control"
+    }
+</style>
+<body>
+<div role="tabpanel">
+
+    <div class="container-fluid">
+        <caption><h4>添加新商品，或者查看<span><a style="float: 18px" href="__URL__/lst">商品列表</a></span></h4></caption>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#general" role="tab" data-toggle="tab">通用信息</a></li>
+            <li role="presentation"><a href="#detail" role="tab"  data-toggle="tab">详细描述</a></li>
+            <li role="presentation"><a href="#mix" role="tab" data-toggle="tab">其他信息</a></li>
+            <li role="presentation"><a href="#attr"  role="tab" data-toggle="tab">商品属性</a></li>
+            <li role="presentation"><a href="#prom" role="tab" data-toggle="tab">促销信息</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <form enctype="multipart/form-data" action="__URL__/addOK" method="post" name="theForm" >
+        <div class="tab-content col-sm-12">
+
+            <div role="tabpanel" class="tab-pane fade in active" id="general">
+
+                <input type="hidden" name="MAX_FILE_SIZE" value="2097152" />
+                <!-- 通用信息 -->
+                <table width="90%" class="table" align="center">
+                    <tr>
+                        <td align="right">商品名称：</td>
+                        <td><input type="text" name="goods_name" value="" style="float:left;" size="30" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <a href="#" title="点击此处查看提示信息"><img src="__AIMG__/notice.gif" width="16" height="16" border="0" alt="点击此处查看提示信息"></a> 商品货号： </td>
+                        <td><input type="text" name="goods_sn" value="" size="20"  /><span id="goods_sn_notice"></span><br />
+                            <span class="notice-span" style="display:block"  id="noticeGoodsSN">如果您不输入商品货号，系统将自动生成一个唯一的货号。</span></td>
+                    </tr>
+                    <tr>
+                        <td align="right">商品分类：</td>
+                        <td><select name="cat_id"  >
+                            <foreach name="catedate" item="vo">
+                                <option value="{$vo.cat_id}">{$vo.cat_name}</option>
+                            </foreach>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">商品品牌：</td>
+                        <td><select name="brand_id"  >
+                            <foreach name="branddata" item="vo">
+                                <option value="{$vo.brand_id}">{$vo.brand_name}</option>
+                            </foreach>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">本店售价：</td>
+                        <td><input type="text" name="shop_price" value="0" size="20" /></td>
+                    </tr>
+
+                    <tr>
+                        <td align="right">上传商品图片(封面使用)：</td>
+                        <td>
+                            <input id="file1" type="file" name="goods_img1" size="35" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">上传商品图片2(鼠标移过时显示)：</td>
+                        <td>
+                            <input id="file2" type="file" name="goods_img2" size="35" disabled="disabled"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="detail">
+
+                <table width="90%" class="table" align="center">
+                    <tr>
+                        <td align="right">商品详细描述：</td>
+                        <td><textarea name="goods_desc" cols="50" rows="10"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="mix">
+
+                <table width="90%" class="table" align="center">
+                    <tr>
+                        <td align="right"><a href="#" title="点击此处查看提示信息"><img src="__AIMG__/notice.gif" width="16" height="16" border="0" alt="点击此处查看提示信息"></a> 商品库存数量：</td>
+
+                        <td><input type="text" name="goods_number" value="1" size="20" />
+                    </tr>
+                    <tr>
+                        <td align="right">加入推荐：</td>
+                        <td><input type="checkbox" name="is_best" value="1"  />精品 <input id='isnewcheck' type="checkbox" name="is_new" value="1"  />新品 <input type="checkbox" name="is_hot" value="1"  />热销</td>
+
+                    <tr  id="newdate" hidden="hidden">
+                        <td align="right">新品截至日期：</td>
+                        <td><input type="date" name="new_last_time"></td>
+                    </tr>
+                    </tr>
+                    <tr id="alone_sale_1">
+                        <td align="right" id="alone_sale_2">上架：</td>
+                        <td id="alone_sale_3"><input type="checkbox" name="is_sale" value="1" checked="checked" /> 打勾表示允许销售，否则不允许销售。</td>
+                    </tr>
+                    <tr>
+                        <td align="right">商品关键词：</td>
+                        <td><input type="text" name="keywords" value="" size="40" /> 用空格分隔</td>
+                    </tr>
+                    <tr>
+                        <td align="right">商品简单描述：</td>
+                        <td><textarea name="goods_brief" cols="40" rows="3"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane fade " id="attr">
+
+                <table width="40%" class="table" align="center">
+                    <tr>
+                        <td align="right">商品类型:</td>
+                        <td align="left"><select name="goods_type">
+                            <option>请选择商品类型</option>
+                            <?php foreach($typedata as $v){?>
+                            <option value="<?php echo $v['id']?>"><?php echo $v['type_name']?></option>
+                            <?php }?>
+                        </select></td>
+                    </tr>
+                    <tr><td colspan="2"><div id="showattr" style="padding-left: 30%"></div></td></tr>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane fade " id="prom">
+                <table width="40%" class="table" align="center">
+                    <tr>
+                        <td align="right">是否促销：</td>
+                        <td><input id="promyes" type="radio" name="is_promote" value="1">是
+                        <input id="promno" type="radio" name="is_promote" value="0" checked>否</td>
+                    </tr>
+                    <tr>
+                        <td align="right">促销开始时间：</td>
+                        <td><input class="promtime" type="date" name="promote_start_time"></td>
+                    </tr>
+                    <tr>
+                        <td align="right">结束开始时间：</td>
+                        <td><input class="promtime" type="date" name="promote_end_time"></td>
+                    </tr>
+                    <tr>
+                        <td align="right">促销价：</td>
+                        <td><input class="promtime"  name="promote_price"></td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+            <div class="button-div" align="center">
+                <input type="submit" name="submit" value=" 确定 " class="button" />
+                <input type="reset" value=" 重置 " class="button" />
+            </div>
+            <input type="hidden" name="act" value="insert" />
+        </form>
+    </div>
+
+</div>
+
+
+</body>
+<script>
+    //默认状态是禁用状态
+    $(function() {
+        $("select[name=goods_type]").change(changetype);
+        function changetype(){
+            var id = $(this).val();
+//    alert("__URL__");
+            $.ajax({
+                type:'get',
+                url:'__URL__/showattr/id/'+id,
+                success:function(msg){
+                    $("#showattr").html(msg);
+                }
+            })
+        }
+        $(".promtime").attr("disabled", 'disabled');
+
+        $("#promyes").click(function () {
+            $(".promtime").attr("disabled", false);//当选择列表时是开启状态。
+        });
+        $("#promno").click(function () {
+            $(".promtime").val('');
+            $(".promtime").attr("disabled", 'disabled');//当选择手工输入时是禁用状态。
+        });
+        $("#isnewcheck").click(function () {
+            if ($("#isnewcheck").is(":checked"))
+                ($("#newdate").attr("hidden", false));
+            else {
+                $("#newdate").val('');
+                $("#newdate").attr("hidden", "hidden");
+            }
+        });
+
+        $("#file1").change(function () {
+            if ($(this).val() == "") {
+                $("#file2").attr("disabled", "disabled");
+                $("#file2").val("");
+            } else {
+                $("#file2").attr("disabled", "");
+            }
+        })
+    });
+</script>
+</html>

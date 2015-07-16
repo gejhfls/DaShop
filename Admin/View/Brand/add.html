@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="__HJS__/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="__HCSS__/catecss.css" type="text/css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="main-div container">
+    <form action="__MODULE__/Brand/addOK" method="post" name="theForm" enctype="multipart/form-data">
+        <caption><h4>添加新的商品品牌</h4></caption>
+        <table width="100%" class="table">
+            <tr>
+                <td align="right">品牌名称:</td>
+                <td>
+                    <input type='text' name='brand_name' maxlength="20" value='' size='27' /> <font color="red">*</font>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">品牌描述:</td>
+                <td>
+                    <textarea name="brand_desc" id="cat_desc" rows="4" cols="80"></textarea> <font color="red">*</font>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">品牌连接:</td>
+                <td>
+                    <input type='text' name='site_url' maxlength="20" value='' size='27' />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">上传品牌logo：</td>
+                <td>
+                    <input type="file" name="logo_file" size="35" />
+                </td>
+            </tr>
+            <tr>
+                <td></td><td><input type="submit" value=" 确定 " name="submit"/>
+                <input type="reset" value=" 重置 " /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

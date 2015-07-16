@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="__HJS__/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link href="__HCSS__/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="__HCSS__/catecss.css" type="text/css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="__HCSS__/ie/html5shiv.js"></script>
+    <script src="__HCSS__/ie/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body  style="">
+<div class="container-fluid">
+<table class="table">
+    <caption>
+        <h4>你可以管理你的商品类别及属性，也可以添加一个 <span><a style="float: 18px" href="__URL__/add">新类别</a></span></h4>
+        <p style="color: red">商品类别不同于商品栏目，商品栏目适用于前台页的分类筛选，而商品类别的作用在于定义商品属性，在前端无直接体现</p>
+
+    </caption>
+    <thead>
+    <tr>
+        <!--<th>#</th>-->
+        <th>种类名</th>
+        <th>属性数目</th>
+        <th>操作</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <foreach name="typedata" item="vo">
+        <tr><!--<th scope="row">1</th>-->
+            <td>{$vo.type_name}</td>
+            <td>{$vo.count}</td>
+            <td>
+                <a href="__MODULE__/Attribute/lst/id/<?php echo $v['id']?>">属性列表</a> |
+                <a >编辑</a> |
+                <a title="移除">移除</a>
+            </td>
+        </tr>
+    </foreach>
+    </tbody>
+
+</table>
+</div>
+</body>
+</html>
